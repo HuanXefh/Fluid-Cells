@@ -1,0 +1,17 @@
+name: fcell
+displayName: Fluid Cells
+
+
+author: MaboroshiX
+repo: Fluid-Cells
+minGameVersion: 156
+dependencies: []
+softDependencies: []
+
+
+description:
+'''
+Automatically adds fluid cell items for every fluid in game, including those from mods.
+'''
+
+version: 101
