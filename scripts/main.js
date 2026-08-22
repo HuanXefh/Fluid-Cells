@@ -17,15 +17,15 @@
  * global.fcell.filters = global.fcell.filters || [];
  *
  * // Approach 1
- * global.fcell.filters.push(liq => liq.name === "test-liquid-1");
- * global.fcell.filters.push(liq => liq.name === "test-liquid-2");
- * global.fcell.filters.push(liq => liq.name === "test-liquid-3");
+ * global.fcell.filters.push(liq => liq.name !== "test-liquid-1");
+ * global.fcell.filters.push(liq => liq.name !== "test-liquid-2");
+ * global.fcell.filters.push(liq => liq.name !== "test-liquid-3");
  *
- * // Approach 2 (FCELL must be your mods' dependency)
+ * // Approach 2 (FCell must be your mods' dependency)
  * global.fcell.addFilter(
- *   liq => liq.name === "test-liquid-1",
- *   liq => liq.name === "test-liquid-2",
- *   liq => liq.name === "test-liquid-3",
+ *   liq => liq.name !== "test-liquid-1",
+ *   liq => liq.name !== "test-liquid-2",
+ *   liq => liq.name !== "test-liquid-3",
  * );
  */
 

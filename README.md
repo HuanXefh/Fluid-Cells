@@ -41,12 +41,18 @@ You can prevent generation of items for some fluids in your mod by a script:
 
 ```js
 // Keep existing values
-global.fcell = global.fcell != null ? global.fcell : {};
-global.fcell.filters = global.fcell.filters != null ? global.fcell.filters : [];
+global.fcell = global.fcell || {};
+global.fcell.filters = global.fcell.filters || [];
 
 // Register new filters
-// If `yourFilter` returns false, item generation will be skipped for this liquid
-global.fcell.filters.push(liquid => yourFilter(liquid));
+// If the arrow function returns false, item generation will be skipped for this liquid
+global.fcell.filters.push(liquid => liquid.name !== "test-liquid");
+// If your mod requires FCell, you can call a method instead for batch definition
+global.fcell.addFilter(
+  liquid => liquid.name !== "test-liquid-1",
+  liquid => liquid.name !== "test-liquid-2",
+  liquid => liquid.name !== "test-liquid-3",
+);
 ```
 
 <br>
