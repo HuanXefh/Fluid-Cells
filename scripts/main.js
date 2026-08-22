@@ -119,6 +119,7 @@ Events.run(ModContentLoadEvent, () => {
           Events.run(ClientLoadEvent, () => Time.runTask(4.0, () => {
             this.flammability = this.cellContent.flammability;
             this.explosiveness = this.cellContent.explosiveness;
+            this.color = this.cellContent.color;
 
             this.shownPlanets.addAll(this.cellContent.shownPlanets);
             this.databaseTabs.addAll(this.cellContent.databaseTabs);
