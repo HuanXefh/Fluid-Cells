@@ -6,6 +6,16 @@ This mod alone **DOES NOT** add any recipe, even an empty cell!
 
 <br>
 
+## How to use
+
+This mod only generates items for fluids that have been registered before this mod gets loaded.
+
+To access fluid cell items from your own mod, it's recommended to make items/fluids in a separate mod, then add that mod and Fluid Cells to `dependencies` of your mod.
+
+Generated items are named like `fcell-cell-<modename>-<fluidname>`.
+
+<br>
+
 ## Spriting
 
 This mod generates item sprites based on `liquid.gas` and `liquid.color`. You don't have to draw sprites for those items.
@@ -24,9 +34,9 @@ If you want to have particular sprites for all fluids from your mod:
 
 <br>
 
-## Item name
+## Localized name
 
-Names are generated for these items like **"Cell: \<fluidname>"**. However, it's still possible to assign the localized name with bundle files:
+Localized names are generated for these items like **"Cell: \<fluidname>"**. However, it's still possible to assign the localized name with bundle files:
 
 ```
 item.fcell-cell-<modname>-<fluidname>.name = Your Item Name Here
@@ -37,7 +47,7 @@ item.fcell-cell-<modname>-<fluidname>.description = Your item description here.
 
 ## Filtering out special fluids
 
-You can prevent generation of items for some fluids in your mod by a script:
+You can prevent generation of items for some fluids in your mod (that creates fluids) by a script:
 
 ```js
 // Keep existing values
@@ -47,12 +57,6 @@ global.fcell.filters = global.fcell.filters || [];
 // Register new filters
 // If the arrow function returns false, item generation will be skipped for this liquid
 global.fcell.filters.push(liquid => liquid.name !== "test-liquid");
-// If your mod requires FCell, you can call a method instead for batch definition
-global.fcell.addFilter(
-  liquid => liquid.name !== "test-liquid-1",
-  liquid => liquid.name !== "test-liquid-2",
-  liquid => liquid.name !== "test-liquid-3",
-);
 ```
 
 <br>
