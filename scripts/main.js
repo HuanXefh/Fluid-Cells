@@ -133,16 +133,10 @@ global.fcell.filters.push(
 
 
 
-function timeRunV8(delay, scr) {
-    Time.run(delay, scr);
-};
-function timeRunV9(delay, scr) {
-    Vars.state.run(delay, scr);
-};
 function timeRun(delay, scr) {
     isV8 ?
-        timeRunV8(delay, scr) :
-        timeRunV9(delay, scr);
+        Time.run(delay, scr) :
+        Vars.state.run(delay, scr);
 };
 
 
@@ -166,18 +160,18 @@ Vars.content.liquids().each(
                 this.super$init();
 
                 Events.run(ClientLoadEvent, () => timeRun(4.0, () => {
-                    this.flammability = this.cellContent.flammability;
-                    this.explosiveness = this.cellContent.explosiveness;
-                    this.color = this.cellContent.color;
+                    this.flammability = this.delegee.cellContent.flammability;
+                    this.explosiveness = this.delegee.cellContent.explosiveness;
+                    this.color = this.delegee.cellContent.color;
 
-                    this.shownPlanets.addAll(this.cellContent.shownPlanets);
-                    this.databaseTabs.addAll(this.cellContent.databaseTabs);
+                    this.shownPlanets.addAll(this.delegee.cellContent.shownPlanets);
+                    this.databaseTabs.addAll(this.delegee.cellContent.databaseTabs);
                 }));
 
                 if(!Vars.headless && !Core.bundle.has("item." + this.name + ".name")) {
                     // If not bundled, generate name based on the fluid name
                     Events.run(ClientLoadEvent, () => timeRun(6.0, () => {
-                        this.localizedName = Core.bundle.get("term.fcell-term-fluid-cell.name") + " " + this.cellContent.localizedName;
+                        this.localizedName = Core.bundle.get("term.fcell-term-fluid-cell.name") + " " + this.delegee.cellContent.localizedName;
                     }));
                 };
             },
@@ -204,22 +198,22 @@ Vars.content.liquids().each(
             ex_createIcons(packer) {
                 // If the fluid has "-cell" and "-cell-fluid" sprites, use them instead
                 // If the mod has "<modname>-liquid-cell" and "<modname>-gas-cell" sprites (same for "-cell-fluid"), also use them instead
-                let nameMod = this.cellContent.minfo.mod == null ? null : this.cellContent.minfo.mod.name;
+                let nameMod = this.delegee.cellContent.minfo.mod == null ? null : this.delegee.cellContent.minfo.mod.name;
                 let pixCont;
-                if(packer.has(this.cellContent.name + "-cell")) {
-                    pixCont = packer.get(this.cellContent.name + "-cell");
+                if(packer.has(this.delegee.cellContent.name + "-cell")) {
+                    pixCont = packer.get(this.delegee.cellContent.name + "-cell");
                 } else {
-                    if(!this.cellContent.gas) {
+                    if(!this.delegee.cellContent.gas) {
                         pixCont = packer.get(packer.has(nameMod + "-liquid-cell") ? (nameMod + "-liquid-cell") : "fcell-liquid-cell");
                     } else {
                         pixCont = packer.get(packer.has(nameMod + "-gas-cell") ? (nameMod + "-liquid-cell") : "fcell-gas-cell");
                     };
                 };
                 let pixFld;
-                if(packer.has(this.cellContent.name + "-cell-fluid")) {
-                    pixFld = packer.get(this.cellContent.name + "-cell-fluid");
+                if(packer.has(this.delegee.cellContent.name + "-cell-fluid")) {
+                    pixFld = packer.get(this.delegee.cellContent.name + "-cell-fluid");
                 } else {
-                    if(!this.cellContent.gas) {
+                    if(!this.delegee.cellContent.gas) {
                         pixFld = packer.get(packer.has(nameMod + "-liquid-cell-fluid") ? (nameMod + "-liquid-cell-fluid") : "fcell-liquid-cell-fluid");
                     } else {
                         pixFld = packer.get(packer.has(nameMod + "-gas-cell-fluid") ? (nameMod + "-liquid-cell-fluid") : "fcell-gas-cell-fluid");
@@ -235,10 +229,10 @@ Vars.content.liquids().each(
                     y,
                     clearRawColor = Color.clear.rgba8888();
 
-                let fldColor = this.cellContent.color;
+                let fldColor = this.delegee.cellContent.color;
                 if(fldColor.equals(Color.black)) {
-                    if(hasLovec && packer.has(this.cellContent.name)) {
-                        let rawColors = MDL_color.getPixColors(packer.get(this.cellContent.name));
+                    if(hasLovec && packer.has(this.delegee.cellContent.name)) {
+                        let rawColors = MDL_color.getPixColors(packer.get(this.delegee.cellContent.name));
                         if(rawColors.length === 0) {
                             // Do nothing
                         } else if(rawColors.length > 1) {
@@ -276,7 +270,7 @@ Vars.content.liquids().each(
                 };
 
                 isV8 ?
-                    packer.add(eval("MultiPacker.PageType.main"), this.name + "-gen", pix) :
+                    packer.add(MultiPacker.PageType.main, this.name + "-gen", pix) :
                     packer.add(this.name + "-gen", pix);
                 pixFldRecolor.dispose();
                 pix.dispose();
@@ -284,7 +278,7 @@ Vars.content.liquids().each(
 
 
             ex_getFluid() {
-                return this.cellContent;
+                return this.delegee.cellContent;
             },
 
 
