@@ -12,7 +12,7 @@ This mod only generates items for fluids that have been registered before this m
 
 To access fluid cell items from your own mod, it's recommended to make items/fluids in a separate mod, then add that mod and Fluid Cells to `dependencies` of your mod.
 
-Generated items are named like `fcell-cell-<modename>-<fluidname>`.
+Generated items are named like `fcell-cell-<modname>-<fluidname>`.
 
 <br>
 
@@ -20,23 +20,23 @@ Generated items are named like `fcell-cell-<modename>-<fluidname>`.
 
 This mod generates item sprites based on `liquid.gas` and `liquid.color`. You don't have to draw sprites for those items.
 
-If you want to have particular sprites used for a fluid, name them like:
+If you want to have particular sprites used for a fluid cell item, name them like:
 
-1. **"\<fluidname>-cell"**: For casing sprite.
+1. `<fluidname>-cell`: For casing sprite.
 
-2. **"\<fluidname>-cell-fluid"**: For inner fluid sprite, expected to be white only.
+2. `<fluidname>-cell-fluid`: For inner fluid sprite, expected to be white only.
 
 If you want to have particular sprites for all fluids from your mod:
 
-1. **"liquid-cell"**: Same as "-cell". **"gas-cell"** for gases.
+1. `liquid-cell`: Same as `<fluidname>-cell`. Use `gas-cell` for gases.
 
-2. **"liquid-cell-fluid"**: Same as "-cell-fluid". **"gas-cell-fluid"** for gases.
+2. `liquid-cell-fluid`: Same as `<fluidname>-cell-fluid`. Use `gas-cell-fluid` for gases.
 
 <br>
 
 ## Localized name
 
-Localized names are generated for these items like **"Cell: \<fluidname>"**. However, it's still possible to assign the localized name with bundle files:
+Localized names are generated for these items like `Cell: <fluidname>`. However, it's still possible to assign the localized name with bundle files:
 
 ```
 item.fcell-cell-<modname>-<fluidname>.name = Your Item Name Here
@@ -47,7 +47,7 @@ item.fcell-cell-<modname>-<fluidname>.description = Your item description here.
 
 ## Filtering out special fluids
 
-You can prevent generation of items for some fluids in your mod (that creates fluids) by a script:
+You can prevent generation of cell items for some fluids in your mod (that creates fluids) by a script:
 
 ```js
 // Keep existing values
